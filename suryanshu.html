@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Interactive Globe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            background: #000;
+            font-family: 'Arial', sans-serif;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.5rem;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-screen">   </div><!--Loading...-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script>
+        class Globe {
+            constructor() {
+                this.container = document.body;
+                this.loadingScreen = document.querySelector('.loading-screen');
+                this.initScene();
+                this.createGlobe();
+                this.createStars();
+                this.addEventListeners();
+                this.animate();
+            }
+
+            initScene() {
+                this.scene = new THREE.Scene();
+                this.camera = new THREE.PerspectiveCamera(
+                    45,
+                    window.innerWidth / window.innerHeight,
+                    0.1,
+                    1000
+                );
+                this.camera.position.z = 5;
+
+                this.renderer = new THREE.WebGLRenderer({
+                    antialias: true,
+                    alpha: true
+                });
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.renderer.setPixelRatio(window.devicePixelRatio);
+                this.container.appendChild(this.renderer.domElement);
+
+                this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+                this.controls.enableDamping = true;
+                this.controls.dampingFactor = 0.05;
+            }
+
+            createGlobe() {
+                const textureLoader = new THREE.TextureLoader();
+                const loaderManager = new THREE.LoadingManager();
+
+                loaderManager.onLoad = () => {
+                    this.loadingScreen.style.display = 'none';
+                };
+
+                const globeGeometry = new THREE.SphereGeometry(2, 64, 64);
+                const globeMaterial = new THREE.MeshPhongMaterial({
+                    bumpScale: 0.05,
+                    specular: new THREE.Color('grey'),
+                    shininess: 5
+                });
+
+                textureLoader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg', (texture) => {
+                    globeMaterial.map = texture;
+                    globeMaterial.needsUpdate = true;
+                });
+
+                textureLoader.load('https://threejs.org/examples/textures/planets/earth_normal_2048.jpg', (texture) => {
+                    globeMaterial.bumpMap = texture;
+                    globeMaterial.needsUpdate = true;
+                });
+
+                textureLoader.load('https://threejs.org/examples/textures/planets/earth_specular_2048.jpg', (texture) => {
+                    globeMaterial.specularMap = texture;
+                    globeMaterial.needsUpdate = true;
+                });
+
+                this.globeMesh = new THREE.Mesh(globeGeometry, globeMaterial);
+                this.scene.add(this.globeMesh);
+
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+                this.scene.add(ambientLight);
+
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+                directionalLight.position.set(5, 3, 5);
+                this.scene.add(directionalLight);
+            }
+
+            createStars() {
+                const starsGeometry = new THREE.BufferGeometry();
+                const starsMaterial = new THREE.PointsMaterial({
+                    color: 0xFFFFFF,
+                    size: 0.1
+                });
+
+                const starsVertices = [];
+                for (let i = 0; i < 10000; i++) {
+                    const x = (Math.random() - 0.5) * 2000;
+                    const y = (Math.random() - 0.5) * 2000;
+                    const z = (Math.random() - 0.5) * 2000;
+                    starsVertices.push(x, y, z);
+                }
+
+                starsGeometry.setAttribute(
+                    'position',
+                    new THREE.Float32BufferAttribute(starsVertices, 3)
+                );
+
+                const starField = new THREE.Points(starsGeometry, starsMaterial);
+                this.scene.add(starField);
+            }
+
+            addEventListeners() {
+                window.addEventListener('resize', this.onWindowResize.bind(this));
+            }
+
+            onWindowResize() {
+                this.camera.aspect = window.innerWidth / window.innerHeight;
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+
+            animate() {
+                requestAnimationFrame(this.animate.bind(this));
+                this.globeMesh.rotation.y += 0.001;
+                this.controls.update();
+                this.renderer.render(this.scene, this.camera);
+            }
+        }
+
+        window.addEventListener('load', () => new Globe());
+    </script>
+</body>
+</html>

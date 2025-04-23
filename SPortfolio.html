@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title >Creative Portfolio</title>
+    <link rel="icon" type="image/jpeg" href="suryanshu1.jpeg">
+     
+    <link rel="stylesheet" href="SPortfolio.css">
+    <script defer src="SPortfolio.js"></script>
+    <!--
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: #121212; color: white; }
+        header { background: rgba(0, 0, 0, 0.8); padding: 15px 20px; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        .nav-links { list-style: none; display: flex; justify-content: center; }
+        .nav-links li { margin: 0 20px; }
+        .nav-links a { color: white; text-decoration: none; font-weight: bold; transition: 0.3s; }
+        .nav-links a:hover { color: #f39c12; }
+        .hero { display: flex; align-items: center; justify-content: center; height: 100vh; text-align: center; background: url('hero-bg.jpg') no-repeat center center/cover; position: relative; }
+        .hero h1 { font-size: 3rem; }
+        .hero p { font-size: 1.2rem; margin-top: 10px; }
+        .btn { display: inline-block; margin-top: 20px; padding: 10px 20px; background: #f39c12; color: white; border-radius: 5px; text-decoration: none; transition: 0.3s; }
+        .btn:hover { background: #e67e22; }
+        .developer-photo { position: absolute; bottom: 20px; right: 20px; width: 150px; height: 150px; border-radius: 50%; overflow: hidden; border: 3px solid white; }
+        .developer-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .section { padding: 80px 20px; text-align: center; }
+        .projects-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .project-card { background: #222; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(255,255,255,0.1); width: 300px; }
+        .gallery-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 50px 20px; }
+        .gallery-item { width: 250px; height: 250px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 10px rgba(255,255,255,0.1); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .gallery-item img:hover { transform: scale(1.1); }
+        .contact form { display: flex; flex-direction: column; max-width: 500px; margin: auto; }
+        .contact input, .contact textarea { margin: 10px 0; padding: 15px; width: 100%; border-radius: 5px; border: none; }
+        .contact button { padding: 15px; background: #f39c12; color: white; border: none; border-radius: 5px; cursor: pointer; transition: 0.3s; }
+        .contact button:hover { background: #e67e22; }
+        footer { text-align: center; padding: 20px; background: #000; }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .nav-links { flex-direction: column; align-items: center; }
+            .projects-container { flex-direction: column; align-items: center; }
+            .gallery-container { flex-direction: column; align-items: center; }
+            .developer-photo { width: 120px; height: 120px; bottom: 10px; right: 10px; }
+        }
+    </style>-->
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="home" class="hero">
+        <div>
+            <h1>Hi, I'm a Creative Developer</h1>
+            <p1>Bringing ideas to life with design & technology</p1>
+            <a href="#projects" class="btn">View My Work</a>
+        </div>
+        <!--<div class="developer-photo"> 
+            <img src="Suryanshu2.jpeg" alt="Developer Photo">
+        </div>-->
+    </section>
+    <section id="about" class="section">
+        <h2>About Me</h2>
+        <p>I am a passionate web developer specializing in modern web technologies like HTML, CSS, JavaScript, and React.</p>
+    </section>
+    <section id="projects" class="section">
+        <h2>My Projects</h2>
+        <div class="projects-container">
+            <div class="project-card">
+                <h3>Portfolio Website</h3>
+                <p>A modern and responsive personal portfolio.</p>
+            </div>
+            <div class="project-card">
+                <h3>E-Commerce Platform</h3>
+                <p>An online shopping website with secure payments.</p>
+            </div>
+            <div class="project-card">
+                <h3>Task Manager</h3>
+                <p>A productivity tool with task tracking features.</p>
+            </div>
+        </div>
+    </section>
+    <section id="gallery" class="section">
+        <h2>Photo Gallery</h2>
+        <div class="gallery-container">
+            <div class="gallery-item"><img src= "fund.jpg" alt="Gallery Image 1"></div>
+            <div class="gallery-item"><img src="download.png" alt="Gallery Image 2"></div>
+            <div class="gallery-item"><img src="nTask.png" alt="Gallery Image 3"></div>
+            <div class="gallery-item"><img src="task.jpg" alt="Gallery Image 4"></div>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2025 Creative Portfolio. All rights reserved.</p>
+    </footer>
+</body>
+</html>
